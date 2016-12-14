@@ -1,0 +1,197 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+  <head>
+    <meta charset="utf-8" />
+    <title>C2Sim Sandbox Scheduler</title>
+
+    <link href="http://localhost:8080/deps/css/bootstrap.min.css"        rel="stylesheet">
+    <link href="http://localhost:8080/deps/css/bootstrap-datepicker.css" rel="stylesheet">
+    
+    <script src="http://localhost:8080/deps/js/jquery.min.js"></script>
+    <script src="http://localhost:8080/deps/js/bootstrap.min.js"></script>
+    <script src="http://localhost:8080/deps/js/bootstrap-datepicker.min.js"></script>
+    <script src="http://localhost:8080/deps/js/socket.io.slim.min.js"></script>
+    <script src="http://localhost:8080/deps/js/js.cookie.js"></script>
+
+    <script src="./schedule-manager.js"></script>
+    
+  </head>
+
+  <body>
+
+    <form class="navbar-form navbar-inverse navbar-fixed-top navbar-right">
+      
+      <div class="col-md-11">
+        <!-- ROOM FOR FUTURE BUTTONS/LINKS -->
+        <!-- Also pushes the logout button all the way to the right, please don't delete this div -->
+      </div>
+      
+      <div class="container col-md-1">
+        <button id="logout" type="button" class="btn btn-default navbar-btn">Logout</button>
+      </div>
+      
+    </form>
+    
+    <div class="jumbotron text-center">
+      <h1>Scheduler <span class="label label-info">C2 SIM Sandbox</span></h1>
+    </div>
+
+    <div class="row">
+
+      <div class="col-sm-4 col-sm-offset-4">
+        <div id="date-picker" class="input-group date" data-provide="datepicker">
+          <input type="text" id="selectedDate" class="form-control" value="MM/DD/YYYY">
+          <div class="input-group-addon">
+            <span class="glyphicon glyphicon-th"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-8 col-sm-offset-2"  style="padding-top: 15px;">
+          <div class="panel panel-success" align="center">
+            <div class="panel-heading">
+              <h3 class="panel-title">Available Time Slots</h3>
+            </div>
+            <div class="panel-body">
+                <!-- data-toggle="buttons-checkbox" consumes Click() events for any button children -->
+              <div class="btn-group" id="slots" data-toggle="buttons-checkbox">
+                
+                <div id="block0" style="margin-top: 8px;">
+                  <button id="button0" type="button" class="btn btn-primary">00:00-01:00</button>
+                  <input  id="text0"   type="text"></input>
+                </div>
+                
+                <div id="block1" style="margin-top: 8px;">
+                  <button id="button1" type="button" class="btn btn-primary">01:00-02:00</button>
+                  <input  id="text1"   type="text"></input>
+                </div>
+                
+                <div id="block2" style="margin-top: 8px;">
+                  <button id="button2" type="button" class="btn btn-primary">02:00-03:00</button>
+                  <input  id="text2"   type="text"></input>
+                </div>
+
+                <div id="block3" style="margin-top: 8px;">
+                  <button id="button3" type="button" class="btn btn-primary">03:00-04:00</button>
+                  <input  id="text3"   type="text"></input>
+                </div>
+
+                <div id="block4" style="margin-top: 8px;">
+                  <button id="button4" type="button" class="btn btn-primary">04:00-05:00</button>
+                  <input  id="text4"   type="text"></input>
+                </div>
+
+                <div id="block5" style="margin-top: 8px;">
+                  <button id="button5" type="button" class="btn btn-primary">05:00-06:00</button>
+                  <input  id="text5"   type="text"></input>
+                </div>
+
+                <div id="block6" style="margin-top: 8px;">
+                  <button id="button6" type="button" class="btn btn-primary">06:00-07:00</button>
+                  <input  id="text6"   type="text"></input>
+                </div>
+
+                <div id="block7" style="margin-top: 8px;">
+                  <button id="button7" type="button" class="btn btn-primary">07:00-08:00</button>
+                  <input  id="text7"   type="text"></input>
+                </div>
+
+                <div id="block8" style="margin-top: 8px;">
+                  <button id="button8" type="button" class="btn btn-primary">08:00-09:00</button>
+                  <input  id="text8"   type="text"></input>
+                </div>
+
+                <div id="block9" style="margin-top: 8px;">
+                  <button id="button9" type="button" class="btn btn-primary">09:00-10:00</button>
+                  <input  id="text9"   type="text"></input>
+                </div>
+
+                <div id="block10" style="margin-top: 8px;">
+                  <button id="button10" type="button" class="btn btn-primary">10:00-11:00</button>
+                  <input  id="text10"   type="text"></input>
+                </div>
+
+                <div id="block11" style="margin-top: 8px;">
+                  <button id="button11" type="button" class="btn btn-primary">11:00-12:00</button>
+                  <input  id="text11"   type="text"></input>
+                </div>
+
+                <div id="block12" style="margin-top: 8px;">
+                  <button id="button12" type="button" class="btn btn-primary">12:00-13:00</button>
+                  <input  id="text12"   type="text"></input>
+                </div>
+
+                <div id="block13" style="margin-top: 8px;">
+                  <button id="button13" type="button" class="btn btn-primary">13:00-14:00</button>
+                  <input  id="text13"   type="text"></input>
+                </div>
+
+                <div id="block14" style="margin-top: 8px;">
+                  <button id="button14" type="button" class="btn btn-primary">14:00-15:00</button>
+                  <input  id="text14"   type="text"></input>
+                </div>
+
+                <div id="block15" style="margin-top: 8px;">
+                  <button id="button15" type="button" class="btn btn-primary">15:00-16:00</button>
+                  <input  id="text15"   type="text"></input>
+                </div>
+
+                <div id="block16" style="margin-top: 8px;">
+                  <button id="button16" type="button" class="btn btn-primary">16:00-17:00</button>
+                  <input  id="text16"   type="text"></input>
+                </div>
+
+                <div id="block17" style="margin-top: 8px;">
+                  <button id="button17" type="button" class="btn btn-primary">17:00-18:00</button>
+                  <input  id="text17"   type="text"></input>
+                </div>
+
+                <div id="block18" style="margin-top: 8px;">
+                  <button id="button18" type="button" class="btn btn-primary">18:00-19:00</button>
+                  <input  id="text18"   type="text"></input>
+                </div>
+
+                <div id="block19" style="margin-top: 8px;">
+                  <button id="button19" type="button" class="btn btn-primary">19:00-20:00</button>
+                  <input  id="text19"   type="text"></input>
+                </div>
+
+                <div id="block20" style="margin-top: 8px;">
+                  <button id="button20" type="button" class="btn btn-primary">20:00-21:00</button>
+                  <input  id="text20"   type="text"></input>
+                </div>
+
+                <div id="block21" style="margin-top: 8px;">
+                  <button id="button21" type="button" class="btn btn-primary">21:00-22:00</button>
+                  <input  id="text21"   type="text"></input>
+                </div>
+
+                <div id="block22" style="margin-top: 8px;">
+                  <button id="button22" type="button" class="btn btn-primary">22:00-23:00</button>
+                  <input  id="text22"   type="text"></input>
+                </div>
+
+                <div id="block23" style="margin-top: 8px;">
+                  <button id="button23" type="button" class="btn btn-primary">23:00-24:00</button>
+                  <input  id="text23"   type="text"></input>
+                </div>
+                
+              </div>
+
+              <div class="col-sm-8 col-sm-offset-2" style="padding: 15px 15px;" align="right">
+                <button type="button" id="reserve" class="btn btn-lg btn-primary">Reserve!</button>
+              </div>
+              
+            </div>
+          </div>
+        </div>  
+      </div>
+      
+    </div>
+    
+  </body>
+  
+</html>
